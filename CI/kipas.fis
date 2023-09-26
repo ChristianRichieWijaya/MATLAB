@@ -1,0 +1,39 @@
+[System]
+Name='kipas'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=4
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Kecepatan'
+Range=[0 5000]
+NumMFs=2
+MF1='Lambat':'trapmf',[0 0 1000 5000]
+MF2='Cepat':'trapmf',[1000 5000 5000 5000]
+
+[Input2]
+Name='Suhu'
+Range=[0 600]
+NumMFs=2
+MF1='Rendah':'trapmf',[0 0 100 600]
+MF2='Tinggi':'trapmf',[100 600 600 600]
+
+[Output1]
+Name='Frekuensi'
+Range=[0 7000]
+NumMFs=2
+MF1='Kecil':'trapmf',[0 0 2000 7000]
+MF2='Besar':'trapmf',[2000 7000 7000 7000]
+
+[Rules]
+1 1, 1 (1) : 1
+2 1, 2 (1) : 1
+1 2, 1 (1) : 1
+2 2, 2 (1) : 1
