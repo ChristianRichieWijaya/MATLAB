@@ -14,10 +14,12 @@ disp('         only integer values.')
 disp('Hit any key to define the objective function.') 
 pause
 
-ObjFun='15*x -x.*x';
+ObjFun=['(4*x.^3 - 6*x.^2 + 1).*(sqrt(x + 1))/(3-x)'];
+
+evalObjFun(ObjFun, 0)
 
 disp(' ')
-disp('ObjFun=15*x -x.*x') 
+disp('(4*x^3 - 6*x^2 + 1)*(sqrt(x + 1))/(3-x)') 
 disp(' ')
 
 disp('Hit any key to define the size of a chromosome population, the number of genes') 
@@ -29,8 +31,8 @@ nind=10;  % Size of a chromosome population
 ngenes=4; % Number of generations
 Pc=0.9;   % Possible maximum value of parameter "x" 
 Pm=0.001;
-xmin=0;
-xmax=15; 
+xmin=-1;
+xmax=1.5; 
 ngener=20; 
 
 disp(' ')
@@ -54,10 +56,16 @@ disp('Hit any key to obtain decoded integers from the chromosome strings.')
 pause
 x=chrom*[2.^(ngenes-1:-1:0)]'
 
+
+disp('Hit any key to obtain adjusted integers.') 
+pause
+x = (((xmax - xmin) / ((2.^ngenes) - 1)) * x) + xmin
+
+
 % Calculation of the chromosome fitness
-ObjV=evalObjFun(ObjFun,x);
-best(1)=max(ObjV);
-ave(1)=mean(ObjV);
+ObjV = evalObjFun(ObjFun,x)
+best(1)=max(max(ObjV))
+ave(1)=mean(ObjV)
 
 disp('Hit any key to display initial locations of the chromosomes on the objective function.') 
 pause
@@ -108,7 +116,7 @@ for i=1:ngener,
     % Fitness calculation
     newx=newchrom*[2.^ (ngenes-1:-1:0)]'; 
     newx=xmin+(newx+1) * (xmax-xmin)/(2^ngenes-1); 
-    newObjV=evalObjFun(ObjFun, newx);
+    newObjV=-evalObjFun(ObjFun, newx);
     
     % Creating a new population of chromosomes
     if nind-numsel, % Preserving a part of the parent chromosome population 
@@ -149,7 +157,7 @@ xlabel('Generations');
 ylabel('Fitness')
 
 function y=evalObjFun (ObjFun, x)
-y=eval(ObjFun);
+y=eval(ObjFun)
 
 
 
