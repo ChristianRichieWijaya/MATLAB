@@ -206,7 +206,7 @@ pause
 
 figure('name','Performance graph');
 plot(0:ngener,best,0:ngener,ave);
-legend('Best','Average',0);
+legend('Best','Average');
 title(['Pc = ',num2str(Pc),', Pm = ',num2str(Pm)]);
 xlabel('Generations');
 ylabel('Distance')
