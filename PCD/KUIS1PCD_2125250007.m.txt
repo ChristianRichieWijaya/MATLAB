@@ -1,0 +1,40 @@
+close all;
+clear all;
+
+% Image
+I = imread('download.jpg')
+
+% Kernel
+fs = fspecial('average',500);
+
+% Blur
+I_new = imfilter(I, fs);
+
+% Shrink
+I_shr = imresize(I_new, 0.1,'bilinear');
+I_ori = imresize(I, 0.1, 'bilinear');
+
+% Substract 
+I_sub = imsubtract(I_ori, I_shr);
+
+% Stretch
+I_str = imadjust(I_sub, stretchlim(I_sub, 0.1));
+
+% Sharpen
+I_sha = imsharpen(I_str);
+
+figure
+subplot (4,4,1), imshow(I), title('Original Image')
+subplot (4,4,2), imshow(I_new), title('Blured Image')
+
+subplot (4,4,3), imshow(I), title('Original Image')
+subplot (4,4,4), imshow(I_shr), title('Shrinked Image')
+
+subplot (4,4,5), imshow(I), title('Original Image')
+subplot (4,4,6), imshow(I_sub), title('Substracted Image')
+
+subplot (4,4,7), imshow(I), title('Original Image')
+subplot (4,4,8), imshow(I_str), title('Stretched Image')
+
+subplot (4,4,9), imshow(I), title('Original Image')
+subplot (4,4,10), imshow(I_sha), title('Sharpened Image')
