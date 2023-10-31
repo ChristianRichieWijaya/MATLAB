@@ -20,7 +20,7 @@ disp('==========================================================================
 disp('Hit any key to define the number of cities to be visited by a salesman.')
 pause
 
-num=20;    % Number of cities to be visited by a salesman
+num=5;    % Number of cities to be visited by a salesman
 
 disp(' ')
 fprintf(1,'num=%.0f;       Number of cities to be visited by a salesman\n',num);
